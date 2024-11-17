@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hexen Core</title>
+    <!-- Adicionando o Bootstrap via CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEJxj6MwL7lA2J7LygW9gQ8PRgQtxd0do0fU5sHkFxlW4pbtR1JXj/c3/8g8k" crossorigin="anonymous">
+    <style>
+        /* Estilo para o mapa */
+        #mapa {
+            width: 800px;
+            height: 900px;
+            border: 1px solid rgb(0, 0, 0);
+            background-image: url("https://i.imgur.com/XQi6Ecn.png"); /* Substitua com o URL do seu mapa */
+            background-size: cover;
+            position: relative;
+        }
+
+        /* Estilo dos botões */
+        .btn-area {
+            position: absolute;
+            background: rgba(52, 52, 60, 0.37);  /* Alterei a opacidade para maior visibilidade */
+            border: 4px solid rgba(255, 255, 255, 0.479); /* Melhor destaque com borda mais clara */
+            border-radius: 50%; 
+            cursor: pointer;
+            width: 30.5px; /* Tamanho do botão */
+            height: 30.5px;
+            transform: translate(-50%, -50%); 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            transition: background 4.6s ease, border 2.3s ease; /* Transição suave para efeitos de hover */
+        }
+
+        /* Efeito de hover para os botões */
+        .btn-area:hover {
+            background: rgba(116, 116, 124, 0.8);  /* Aumenta a opacidade no hover */
+            border-color: rgba(255, 255, 255, 0.9); /* Aumenta a borda no hover */
+        }
+
+        /* Descrição que aparece quando passa o mouse sobre o botão */
+        .descricao {
+            display: none; /* Inicialmente oculta */
+            position: absolute;
+            top: -50px; /* Ajuste da posição da descrição acima do botão */
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 5px 8px;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            font-size: 14px;
+            border-radius: 3px;
+            text-align: center;
+            width: 100px; /* Largura fixa para a descrição */
+            z-index: 10; /* Garante que a descrição fique acima do botão */
+        }
+
+        /* Ícone de imagem dentro do botão */
+        .icone-imagem {
+            position: absolute;
+            display: none; /* Inicialmente invisível */
+            width: 63px;
+            height: 63px;
+            background-size: cover;
+            background-position: center;
+            z-index: 5; /* Abaixo da descrição */
+        }
+
+        /* Fundo escuro e texto claro para a página */
+        body {
+            background-image: url('https://i.imgur.com/mDsqjqk.png'); /* Fundo escuro */
+            color: white; /* Cor do texto clara */
+            background-repeat: no-repeat;
+            position: relative;
+            background-size: cover;
+            background-color: rgb(0, 0, 0);
+        }
+
+        /* Título centralizado com mais margem */
+        h1 {
+            margin-bottom: 30px;
+        }
+
+        /* Estilo para o container */
+        .container {
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body class="p-3 mb-2 bg-dark text-white">
+
+    <div class="container text-center my-5">
+        <h1>Hexen Table</h1>
+        <p>Vera devotio solum operatur cum aliquid totaliter animam tuam das.</p>
+    </div>
+
+    <div id="mapa">
+        <!-- Botões 1 a 12 existentes -->
+        <!-- Botão 1 -->
+        <button class="btn-area" style="top: 824px; left: 401px;" id="btnArea1">
+            <div class="descricao" id="descricao1">Esta é a descrição do primeiro botão.</div>
+            <div class="icone-imagem" id="icone1" style="background-image: url('https://i.imgur.com/3qbYoj1.png');"></div>
+        </button>
+
+        <!-- Botão 2 -->
+        <button class="btn-area" style="top: 840px; left: 400px;" id="btnArea2">
+            <div class="descricao" id="descricao2">Descrição do segundo botão aqui.</div>
+            <div class="icone-imagem" id="icone2" style="background-image: url('https://i.imgur.com/3qbYoj1.png');"></div>
+        </button>
+
+        <!-- Botão 3 -->
+        <button class="btn-area" style="top: 762.5px; left: 448px;" id="btnArea3">
+            <div class="descricao" id="descricao3">Descrição do terceiro botão aqui.</div>
+            <div class="icone-imagem" id="icone3" style="background-image: url('https://i.imgur.com/3qbYoj1.png');"></div>
+        </button>
+
+        <!-- Botão 4 -->
+        <button class="btn-area" style="top: 684px; left: 495px;" id="btnArea4">
+            <div class="descricao" id="descricao4">Descrição do quarto botão aqui.</div>
+            <div class="icone-imagem" id="icone4" style="background-image: url('https://i.imgur.com/3qbYoj1.png');"></div>
+        </button>
+
+        <!-- Botão 5 -->
+        <button class="btn-area" style="top: 654px; left: 589.5px;" id="btnArea5">
+            <div class="descricao" id="descricao5">Descrição do quinto botão aqui.</div>
+            <div class="icone-imagem" id="icone5" style="background-image: url('https://i.imgur.com/3qbYoj1.png');"></div>
+        </button>
+
+        <!-- Botão 6 -->
+        <button class="btn-area" style="top: 482.5px; left: 212px;" id="btnArea6">
+            <div class="descricao" id="descricao6">Descrição do sexto botão aqui.</div>
+            <div class="icone-imagem" id="icone6" style="background-image: url('https://i.imgur.com/3qbYoj1.png');"></div>
+        </button>
+
+        <!-- Botão 7 -->
+        <button class="btn-area" style="top: 546px; left: 118px;" id="btnArea7">
+            <div class="descricao" id="descricao7">Descrição do sétimo botão aqui.</div>
+            <div class="icone-imagem" id="icone7" style="background-image: url('https://i.imgur.com/3qbYoj1.png');"></div>
+        </button>
+
+        <!-- Botão 8 -->
+        <button class="btn-area" style="top: 610px; left: 589.5px;" id="btnArea8">
+            <div class="descricao" id="descricao8">Descrição do oitavo botão aqui.</div>
+            <div class="icone-imagem" id="icone8" style="background-image: url('https://i.imgur.com/3qbYoj1.png');"></div>
+        </button>
+
+        <!-- Botão 9 -->
+        <button class="btn-area" style="top: 297px; left: 495px;" id="btnArea9">
+            <div class="descricao" id="descricao9">Descrição do nono botão aqui.</div>
+            <div class="icone-imagem" id="icone9" style="background-image: url('https://i.imgur.com/3qbYoj1.png');"></div>
+        </button>
+
+        <!-- Botão 10 -->
+        <button class="btn-area" style="top: 407px; left: 165px;" id="btnArea10">
+            <div class="descricao" id="descricao10">Descrição do décimo botão aqui.</div>
+            <div class="icone-imagem" id="icone10" style="background-image: url('https://i.imgur.com/3qbYoj1.png');"></div>
+        </button>
+
+        <!-- Botão 11 -->
+        <button class="btn-area" style="top: 518px; left: 542px;" id="btnArea11">
+            <div class="descricao" id="descricao11">Descrição do décimo primeiro botão aqui.</div>
+            <div class="icone-imagem" id="icone11" style="background-image: url('https://i.imgur.com/3qbYoj1.png');"></div>
+        </button>
+
+        <!-- Botão 12 -->
+        <button class="btn-area" style="top: 252px; left: 353.5px;" id="btnArea12">
+            <div class="descricao" id="descricao12">Descrição do décimo segundo botão aqui.</div>
+            <div class="icone-imagem" id="icone12" style="background-image: url('https://i.imgur.com/3qbYoj1.png');"></div>
+        </button>
+
+        <!-- Botões 13 a 24 adicionados -->
+        <!-- Botão 13 -->
+        <button class="btn-area" style="top: 128px; left: 730px;" id="btnArea13">
+            <div class="descricao" id="descricao13">Descrição do décimo terceiro botão.</div>
+            <div class="icone-imagem" id="icone13" style="background-image: url('https://i.imgur.com/3qbYoj1.png');"></div>
+        </button>
+
+        <!-- Botão 14 -->
+        <button class="btn-area" style="top: 285.5px; left: 684px;" id="btnArea14">
+            <div class="descricao" id="descricao14">Descrição do décimo quarto botão.</div>
+            <div class="icone-imagem" id="icone14" style="background-image: url('https://i.imgur.com/3qbYoj1.png');"></div>
+        </button>
+
+        <!-- Botão 15 -->
+        <button class="btn-area" style="top: 396px; left: 353px;" id="btnArea15">
+            <div class="descricao" id="descricao15">Descrição do décimo quinto botão.</div>
+            <div class="icone-imagem" id="icone15" style="background-image: url('https://i.imgur.com/3qbYoj1.png');"></div>
+        </button>
+
+        <!-- Botão 16 -->
+        <button class="btn-area" style="top: 412.5px; left: 306px;" id="btnArea16">
+            <div class="descricao" id="descricao16">Descrição do décimo sexto botão.</div>
+            <div class="icone-imagem" id="icone16" style="background-image: url('https://i.imgur.com/3qbYoj1.png');"></div>
+        </button>
+
+        <!-- Botão 17 -->
+        <button class="btn-area" style="top: 335px; left: 259px;" id="btnArea17">
+            <div class="descricao" id="descricao17">Descrição do décimo sétimo botão.</div>
+            <div class="icone-imagem" id="icone17" style="background-image: url('https://i.imgur.com/3qbYoj1.png');"></div>
+        </button>
+
+        <!-- Botão 18 -->
+        <button class="btn-area" style="top: 352px; left: 448px;" id="btnArea18">
+            <div class="descricao" id="descricao18">Descrição do décimo oitavo botão.</div>
+            <div class="icone-imagem" id="icone18" style="background-image: url('https://i.imgur.com/3qbYoj1.png');"></div>
+        </button>
+
+        <!-- Botão 19 -->
+        <button class="btn-area" style="top: 133px; left: 588px;" id="btnArea19">
+            <div class="descricao" id="descricao19">Descrição do décimo nono botão.</div>
+            <div class="icone-imagem" id="icone19" style="background-image: url('https://i.imgur.com/3qbYoj1.png');"></div>
+        </button>
+
+        <!-- Botão 20 -->
+        <button class="btn-area" style="top: 102px; left: 636px;" id="btnArea20">
+            <div class="descricao" id="descricao20">Descrição do vigésimo botão.</div>
+            <div class="icone-imagem" id="icone20" style="background-image: url('https://i.imgur.com/3qbYoj1.png');"></div>
+        </button>
+
+        <!-- Botão 21 -->
+        <button class="btn-area" style="top: 260px; left: 353.5px;" id="btnArea21">
+            <div class="descricao" id="descricao21">Descrição do vigésimo primeiro botão.</div>
+            <div class="icone-imagem" id="icone21" style="background-image: url('https://i.imgur.com/3qbYoj1.png');"></div>
+        </button>
+
+        <!-- Botão 22 -->
+        <button class="btn-area" style="top: 88px; left: 636px;" id="btnArea22">
+            <div class="descricao" id="descricao22">Descrição do vigésimo segundo botão.</div>
+            <div class="icone-imagem" id="icone22" style="background-image: url('https://i.imgur.com/3qbYoj1.png');"></div>
+        </button>
+
+        <!-- Botão 23 -->
+        <button class="btn-area" style="top: -177px; left: 683px;" id="btnArea23">
+            <div class="descricao" id="descricao23">Descrição do vigésimo terceiro botão.</div>
+            <div class="icone-imagem" id="icone23" style="background-image: url('https://i.imgur.com/3qbYoj1.png');"></div>
+        </button>
+
+        <!-- Botão 24 -->
+        <button class="btn-area" style="top: 121px; left: 211px;" id="btnArea24">
+            <div class="descricao" id="descricao24">Descrição do vigésimo quarto botão.</div>
+            <div class="icone-imagem" id="icone24" style="background-image: url('https://i.imgur.com/3qbYoj1.png');"></div>
+        </button>
+           <!-- Botão 25 -->
+           <button class="btn-area" style="top: -190px; left: 542px;" id="btnArea25">
+            <div class="descricao" id="descricao25">Descrição do vigésimo quinto botão.</div>
+            <div class="icone-imagem" id="icone25" style="background-image: url('https://i.imgur.com/3qbYoj1.png');"></div>
+        </button>
+
+        <!-- Botão 26 -->
+        <button class="btn-area" style="top: 13px; left: 259px;" id="btnArea26">
+            <div class="descricao" id="descricao26">Descrição do vigésimo sexto botão.</div>
+            <div class="icone-imagem" id="icone26" style="background-image: url('https://i.imgur.com/3qbYoj1.png');"></div>
+        </button>
+
+        <!-- Botão 27 -->
+        <button class="btn-area" style="top: -110px; left: 353px;" id="btnArea27">
+            <div class="descricao" id="descricao27">Descrição do vigésimo sétimo botão.</div>
+            <div class="icone-imagem" id="icone27" style="background-image: url('https://i.imgur.com/3qbYoj1.png');"></div>
+        </button>
+
+        <!-- Botão 28 -->
+        <button class="btn-area" style="top: -188.5px; left: 306.5px;" id="btnArea28">
+            <div class="descricao" id="descricao28">Descrição do vigésimo oitavo botão.</div>
+            <div class="icone-imagem" id="icone28" style="background-image: url('https://i.imgur.com/3qbYoj1.png');"></div>
+        </button>
+
+        <!-- Botão 29 -->
+        <button class="btn-area" style="top: -172px; left: 118px;" id="btnArea29">
+            <div class="descricao" id="descricao29">Descrição do vigésimo nono botão.</div>
+            <div class="icone-imagem" id="icone29" style="background-image: url('https://i.imgur.com/3qbYoj1.png');"></div>
+        </button>
+
+        <!-- Botão 30 -->
+        <button class="btn-area" style="top: -202px; left: 448px;" id="btnArea30">
+            <div class="descricao" id="descricao30">Descrição do trigésimo botão.</div>
+            <div class="icone-imagem" id="icone30" style="background-image: url('https://i.imgur.com/3qbYoj1.png');"></div>
+        </button>
+
+        <!-- Botão 31 -->
+        <button class="btn-area" style="top: -138px; left: 306px;" id="btnArea31">
+            <div class="descricao" id="descricao31">Descrição do trigésimo primeiro botão.</div>
+            <div class="icone-imagem" id="icone31" style="background-image: url('https://i.imgur.com/3qbYoj1.png');"></div>
+        </button>
+
+        <!-- Botão 32 -->
+        <button class="btn-area" style="top: -170px; left: 211px;" id="btnArea32">
+            <div class="descricao" id="descricao32">Descrição do trigésimo segundo botão.</div>
+            <div class="icone-imagem" id="icone32" style="background-image: url('https://i.imgur.com/3qbYoj1.png');"></div>
+        </button>
+
+        <!-- Botão 33 -->
+        <button class="btn-area" style="top: -340px; left: 353.5px;" id="btnArea33">
+            <div class="descricao" id="descricao33">Descrição do trigésimo terceiro botão.</div>
+            <div class="icone-imagem" id="icone33" style="background-image: url('https://i.imgur.com/3qbYoj1.png');"></div>
+        </button>
+
+        <!-- Botão 34 -->
+        <button class="btn-area" style="top: -372px; left: 164px;" id="btnArea34">
+            <div class="descricao" id="descricao34">Descrição do trigésimo quarto botão.</div>
+            <div class="icone-imagem" id="icone34" style="background-image: url('https://i.imgur.com/3qbYoj1.png');"></div>
+        </button>
+
+        <!-- Botão 35 -->
+        <button class="btn-area" style="top: -873px; left: 589px;" id="btnArea35">
+            <div class="descricao" id="descricao35">Descrição do trigésimo quinto botão.</div>
+            <div class="icone-imagem" id="icone35" style="background-image: url('https://i.imgur.com/3qbYoj1.png');"></div>
+        </button>
+
+        <!-- Botão 36 -->
+        <button class="btn-area" style="top: -48.1%; left: 118px;" id="btnArea36">
+            <div class="descricao" id="descricao36">Descrição do trigésimo sexto botão.</div>
+            <div class="icone-imagem" id="icone36" style="background-image: url('https://i.imgur.com/3qbYoj1.png');"></div>
+        </button>
+
+        <!-- Botão 37 -->
+        <button class="btn-area" style="top: -887px; left: 448px;" id="btnArea37">
+            <div class="descricao" id="descricao37">Descrição do trigésimo sétimo botão.</div>
+            <div class="icone-imagem" id="icone37" style="background-image: url('https://i.imgur.com/3qbYoj1.png');"></div>
+        </button>
+
+        <!-- Botão 38 -->
+        <button class="btn-area" style="top: -823px; left: 544px;" id="btnArea38">
+            <div class="descricao" id="descricao38">Descrição do trigésimo oitavo botão.</div>
+            <div class="icone-imagem" id="icone38" style="background-image: url('https://i.imgur.com/3qbYoj1.png');"></div>
+        </button>
+
+        <!-- Botão 39 -->
+        <button class="btn-area" style="top: -570px; left: 589px;" id="btnArea39">
+            <div class="descricao" id="descricao39">Descrição do trigésimo nono botão.</div>
+            <div class="icone-imagem" id="icone39" style="background-image: url('https://i.imgur.com/3qbYoj1.png');"></div>
+        </button>
+
+        <!-- Botão 40 -->
+        <button class="btn-area" style="top: -885px; left: 730px;" id="btnArea40">
+            <div class="descricao" id="descricao40">Descrição do quadragésimo botão.</div>
+            <div class="icone-imagem" id="icone40" style="background-image: url('https://i.imgur.com/3qbYoj1.png');"></div>
+        </button>
+
+        <!-- Botão 41 -->
+        <button class="btn-area" style="top: -774px; left: 685px;" id="btnArea41">
+            <div class="descricao" id="descricao41">Descrição do quadragésimo primeiro botão.</div>
+            <div class="icone-imagem" id="icone41" style="background-image: url('https://i.imgur.com/3qbYoj1.png');"></div>
+        </button>
+
+        <!-- Botão 42 -->
+        <button class="btn-area" style="top: -1040px; left: 352.5px;" id="btnArea42">
+            <div class="descricao" id="descricao42">Descrição do quadragésimo segundo botão.</div>
+            <div class="icone-imagem" id="icone42" style="background-image: url('https://i.imgur.com/3qbYoj1.png');"></div>
+        </button>
+
+        <!-- Botão 43 -->
+        <button class="btn-area" style="top: -788px; left: 542px;" id="btnArea43">
+            <div class="descricao" id="descricao43">Descrição do quadragésimo terceiro botão.</div>
+            <div class="icone-imagem" id="icone43" style="background-image: url('https://i.imgur.com/3qbYoj1.png');"></div>
+        </button>
+
+        <!-- Botão 44 -->
+        <button class="btn-area" style="top: -1148px; left: 400px;" id="btnArea44">
+            <div class="descricao" id="descricao44">Descrição do quadragésimo quarto botão.</div>
+            <div class="icone-imagem" id="icone44" style="background-image: url('https://i.imgur.com/3qbYoj1.png');"></div>
+        </button>
+
+        <!-- Botão 45 -->
+        <button class="btn-area" style="top: -1224px; left: 401px;" id="btnArea45">
+            <div class="descricao" id="descricao45">Descrição do quadragésimo quinto botão.</div>
+            <div class="icone-imagem" id="icone45" style="background-image: url('https://i.imgur.com/3qbYoj1.png');"></div>
+        </button>
+
+        <!-- Botão 46 -->
+        <button class="btn-area" style="top: -879px; left: 447px;" id="btnArea46">
+            <div class="descricao" id="descricao46">Descrição do quadragésimo sexto botão.</div>
+            <div class="icone-imagem" id="icone46" style="background-image: url('https://i.imgur.com/3qbYoj1.png');"></div>
+        </button>
+
+        <!-- Botão 47 -->
+        <button class="btn-area" style="top: -1146px; left: 400.5px;" id="btnArea47">
+            <div class="descricao" id="descricao47">Descrição do quadragésimo sétimo botão.</div>
+            <div class="icone-imagem" id="icone47" style="background-image: url('https://i.imgur.com/3qbYoj1.png');"></div>
+        </button>
+
+        <!-- Botão 48 -->
+        <button class="btn-area" style="top: -1034px; left: 684px;" id="btnArea48">
+            <div class="descricao" id="descricao48">Descrição do quadragésimo oitavo botão.</div>
+            <div class="icone-imagem" id="icone48" style="background-image: url('https://i.imgur.com/3qbYoj1.png');"></div>
+        </button>
+    </div>
+
+    <!-- Adicionando o script do Bootstrap via CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pzjw8f+ua7Kw1TIq0p2B0l92erTXOm3DpTP3JkFf3yb2nOBdJ2OX9rBoeRbdRbrf" crossorigin="anonymous"></script>
+    <audio id="click-sound-active" src="Audio/retro-spell-sfx-85574.mp3"></audio>
+    <audio id="click-sound-inactive" src="Audio/retro-spell-sfx-85574 teste 1.mp3"></audio>
+    <script>
+        // Função para salvar o estado de um botão
+        function salvarEstado(btnId, estado) {
+            localStorage.setItem(btnId, estado);
+        }
+    
+        // Função para carregar o estado de um botão
+        function carregarEstado(btnId) {
+            return localStorage.getItem(btnId) || 'none'; // Retorna 'none' se não houver estado salvo
+        }
+    
+        // Função para alternar o som dependendo do estado do botão
+        function alternarSom(btnId) {
+            var estado = carregarEstado(btnId);
+            var soundActive = document.getElementById('click-sound-active');
+            var soundInactive = document.getElementById('click-sound-inactive');
+    
+            if (estado === 'none') {
+                soundActive.play();
+            } else {
+                soundInactive.play();
+            }
+        }
+    
+        // Função para adicionar eventos de clique e hover aos botões
+        function adicionarEventosBotao(btnId, descricaoId, iconeId) {
+            var btn = document.getElementById(btnId);
+            var descricao = document.getElementById(descricaoId);
+            var icone = document.getElementById(iconeId);
+    
+            // Carregar o estado salvo e ajustar a visibilidade
+            var estado = carregarEstado(btnId);
+            if (estado === 'clicked') {
+                descricao.style.display = 'none';
+                icone.style.display = 'block';
+            } else {
+                descricao.style.display = 'none';  // Descrição começa oculta
+                icone.style.display = 'none';
+            }
+    
+            // Evento de clique
+            btn.addEventListener('click', function() {
+                var estado = carregarEstado(btnId);
+                if (estado === 'none') {
+                    salvarEstado(btnId, 'clicked');
+                    alternarSom(btnId);
+                    descricao.style.display = 'none';
+                    icone.style.display = 'block';
+                } else {
+                    salvarEstado(btnId, 'none');
+                    alternarSom(btnId);
+                    descricao.style.display = 'none';  // Descrição oculta após clique
+                    icone.style.display = 'none';
+                }
+            });
+    
+            // Evento de hover
+            btn.addEventListener('mouseenter', function() {
+                var estado = carregarEstado(btnId);
+                if (estado === 'none') {
+                    descricao.style.display = 'block'; // Exibe a descrição apenas se o botão não tiver sido clicado
+                }
+            });
+            btn.addEventListener('mouseleave', function() {
+                var estado = carregarEstado(btnId);
+                if (estado === 'none') {
+                    descricao.style.display = 'none'; // Descrição oculta ao sair do hover, se não clicado
+                }
+            });
+        }
+
+        // Adicionando eventos aos novos botões
+        for (let i = 1; i <= 48; i++) {
+            adicionarEventosBotao('btnArea' + i, 'descricao' + i, 'icone' + i);
+        }
+    </script>  
+</body>
+</html>
